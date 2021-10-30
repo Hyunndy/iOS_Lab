@@ -45,7 +45,9 @@ class RefreshControlViewController: CMViewController {
         self.vContent.addSubview(scvContainer)
         scvContainer.then { [unowned self] in
             $0.delegate = self
+            $0.isPagingEnabled = true
             $0.alwaysBounceVertical = true
+            $0.decelerationRate = .fast
         }.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
@@ -169,6 +171,14 @@ extension RefreshControlViewController: UIScrollViewDelegate {
 //        self.ivRefresh.image = UIImage(named: imageData[padding])
         print("imageData = \(imageData[padding])")
 
+    }
+    
+    // 끝나기 직전
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        targetContentOffset.pointee = CGPoint(x: 300.0 , y:300.0 )
+        
+        print("#####으아아악 = \(scrollView.contentOffset)")
+        print("#####으아아악2222 = \(targetContentOffset.pointee)")
     }
 }
 
