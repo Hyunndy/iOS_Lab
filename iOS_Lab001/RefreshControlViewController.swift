@@ -12,8 +12,7 @@ import RxSwift
 import RxCocoa
 
 var colorData: [UIColor] = [.red, .orange, .yellow, .green, .blue, .magenta, .purple]
-var imageData: [String] = ["img_orderlist_new_20", "img_orderlist_package_20", "img_orderlist_request_20",
-    "img_orderlist_check_20"]
+var imageData: [UIImage?] = [UIImage(named: "01"), UIImage(named: "02"), UIImage(named: "03"), UIImage(named: "04"), UIImage(named: "05"), UIImage(named: "06"), UIImage(named: "07"), UIImage(named: "08"), UIImage(named: "09")]
 
 class RefreshControlViewController: CMViewController {
     
@@ -24,6 +23,9 @@ class RefreshControlViewController: CMViewController {
     
     let scvContainer = UIScrollView()
     let stvContainer = UIStackView()
+    
+    var flag = false
+    var imageAnimation = false
     
     let mint: UIColor = UIColor(red: 0/255, green: 201/255, blue: 161/255, alpha: 1.0)
     
@@ -45,7 +47,6 @@ class RefreshControlViewController: CMViewController {
         self.vContent.addSubview(scvContainer)
         scvContainer.then { [unowned self] in
             $0.delegate = self
-            $0.isPagingEnabled = true
             $0.alwaysBounceVertical = true
             $0.decelerationRate = .fast
         }.snp.makeConstraints {
@@ -105,16 +106,16 @@ class RefreshControlViewController: CMViewController {
         vRefresh.addSubview(lbRefreshTitle)
         lbRefreshTitle.then {
             $0.text = "땡겨욧"
-            $0.font = .systemFont(ofSize: 15.0, weight: .bold)
+            $0.font = .systemFont(ofSize: 20.0, weight: .bold)
         }.snp.makeConstraints {
             $0.top.bottom.equalToSuperview()
-            $0.centerX.equalToSuperview()
+            $0.centerX.equalToSuperview().offset(10.0)
 //            $0.left.equalTo(self.scvIvContainer.snp.right).offset(10.0)
         }
 
         vRefresh.addSubview(ivRefresh)
         ivRefresh.then {
-            $0.image = UIImage(named: "img_orderlist_new_20")
+            $0.image = UIImage(named: "img_review_thumbsdn_s_60")
             $0.contentMode = .center
         }.snp.makeConstraints {
             $0.top.bottom.equalToSuperview()
@@ -144,41 +145,108 @@ extension RefreshControlViewController: UIScrollViewDelegate {
         //        let distance = max(0.0, -(frame))
         
         let distance = scrollView.frame.origin.y - self.vRefresh.frame.origin.y
-        print("######## distance = \(distance)")
+//        print("######## distance = \(distance)")
         
         let offset = -scrollView.contentOffset.y
-        self.vRefresh.snp.updateConstraints {
-            $0.top.left.right.equalToSuperview()
-            $0.height.equalTo(offset)
+        
+        if imageAnimation == false {
+            self.vRefresh.snp.updateConstraints {
+                $0.top.left.right.equalToSuperview()
+                $0.height.equalTo(offset)
+            }
+            
+            print("######################## 높이 값 바꾼다!!")
         }
         
+        
+        
             let paging = floor(offset/40.0)
-            print("######## paging = \(scrollView.contentOffset)")
+            //print("######## contentOffset = \(scrollView.contentOffset)")
 
             // offset이 50.0 * 서브뷰갯수가 넘어간다면,
             // 200 / 50.0 = 4
             // 250 / 50.0 = 4
 
             // ((200 / 50.0) % 3)
-            let padding = Int(floor((frame/40.0).truncatingRemainder(dividingBy: 4.0)))
+            let padding = Int(floor((frame/40.0).truncatingRemainder(dividingBy: 9.0)))
 
-            print("######## padding = \(padding)")
+//            print("######## padding = \(padding)")
 
-        if UIImage(named: imageData[padding]) != self.ivRefresh.image {
-            self.ivRefresh.setImage(UIImage(named: imageData[padding]), animated: true)
+        if imageAnimation == false && flag == false {
+            
+            if imageData[padding] != self.ivRefresh.image {
+                self.ivRefresh.setImage(imageData[padding], animated: true)
+            }
         }
         
 //        self.ivRefresh.image = UIImage(named: imageData[padding])
-        print("imageData = \(imageData[padding])")
+//        print("imageData = \(imageData[padding])")
 
+        
+        if flag == true && scrollView.contentOffset.y >= -70.0 && scrollView.contentOffset.y <= -60.0 {
+            
+            
+            scrollView.setContentOffset(CGPoint(x: 0.0, y: -60.0), animated: true)
+            
+            if self.imageAnimation == false {
+                
+                
+                DispatchQueue.main.async {
+                    self.ivRefresh.stopAnimating()
+                    self.ivRefresh.frame.origin.y = 40.0
+
+                }
+                
+                self.ivRefresh.layoutIfNeeded()
+                
+                self.imageAnimation = true
+                self.ivRefresh.transition(duration: 0.05, targetImage: imageData[0], completion: {
+                    self.imageAnimation = false
+                    scrollView.setContentOffset(.zero, animated: true)
+                })
+                
+            }
+            
+        }
+        
+        if scrollView.contentOffset == .zero {
+            self.imageAnimation = false
+        }
     }
     
     // 끝나기 직전
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        targetContentOffset.pointee = CGPoint(x: 300.0 , y:300.0 )
+
+        //print(#function)
+        //print("velocity ===== \(velocity)")
         
-        print("#####으아아악 = \(scrollView.contentOffset)")
-        print("#####으아아악2222 = \(targetContentOffset.pointee)")
+        
+        
+        //        print("#####으아아악 = \(scrollView.contentOffset)")
+//        print("#####으아아악2222 = \(targetContentOffset.pointee)")
+    }
+    
+    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+        print(#function)
+    }
+    
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        //print(#function)
+        flag = true
+        imageData.shuffle()
+    }
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        //print(#function)
+        flag = false
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        //print(#function)
+    }
+    
+    func scrollViewDidChangeAdjustedContentInset(_ scrollView: UIScrollView) {
+        //print(#function)
     }
 }
 
@@ -193,5 +261,64 @@ extension UIImageView{
             self.frame.origin.y += 30
             self.image = image
         }, completion: nil)
+    }
+    
+    func transition(duration:CGFloat, targetImage: UIImage?, completion: @escaping () -> Void) {
+        
+        print("@@@@@@ duration = \(duration) @@@@@@@")
+        print("@@@@@@ 시작할 때 origin 위치 = \(self.frame.origin.y) @@@@@@@")
+        var idx = (imageData.firstIndex(of: targetImage) ?? 0) + 1
+        self.setImage2(duration: duration, targetImage, animated: true, success: {
+                
+            if targetImage == imageData[5] {
+                    completion()
+                    print("completion#######")
+                    //print("")
+                } else {
+                    print("idx = \(idx)#######")
+                    self.transition(duration: duration + 0.1, targetImage: imageData[idx], completion: completion)
+                }
+            })
+        
+    }
+    
+    func setImage2(duration: CGFloat, _ image: UIImage?, animated: Bool = true, success: @escaping () -> Void) {
+
+        
+        var frame = self.frame
+        frame.origin.y = 40
+        self.frame = frame
+        self.image = image
+        self.layoutIfNeeded()
+        UIView.transition(with: self, duration: duration, options: .curveLinear, animations: {
+            if image == imageData[5] {
+                self.frame.origin.y = -10
+            } else {
+                self.frame.origin.y = -40
+            }
+            
+        }, completion: { voo in
+            print("끝날 때 origin 위치 !!!!!!!!!!!!!!!1 \(self.frame.origin.y)")
+            if voo == true {
+                
+                if image != imageData[5] {
+                    self.frame.origin.y = 40.0
+                    self.layoutIfNeeded()
+                    success()
+                } else {
+                    UIView.transition(with: self, duration: 0.3, options: .curveLinear, animations: {
+                        self.frame.origin.y = 0.0
+                    }, completion: { _ in
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3, execute: {
+                            success()
+                        })
+                    })
+                    
+                }
+                
+                
+                
+            }
+        })
     }
 }
