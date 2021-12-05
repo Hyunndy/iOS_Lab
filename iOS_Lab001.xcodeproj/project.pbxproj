@@ -15,6 +15,9 @@
 		02B7D74E271595A3003E4FCB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 02B7D74D271595A3003E4FCB /* Assets.xcassets */; };
 		02B7D751271595A3003E4FCB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 02B7D74F271595A3003E4FCB /* LaunchScreen.storyboard */; };
 		02D1A4F1271C18550072C056 /* RefreshControlViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D1A4F0271C18550072C056 /* RefreshControlViewController.swift */; };
+		02E0987A275CFA2C00C5C8E1 /* BMJUA_otf.otf in Resources */ = {isa = PBXBuildFile; fileRef = 02E09878275CFA2C00C5C8E1 /* BMJUA_otf.otf */; };
+		02E0987B275CFA2C00C5C8E1 /* BMHANNA_11yrs_otf.otf in Resources */ = {isa = PBXBuildFile; fileRef = 02E09879275CFA2C00C5C8E1 /* BMHANNA_11yrs_otf.otf */; };
+		02E0DD69275CD69F009156D0 /* BMEULJIRO.otf in Resources */ = {isa = PBXBuildFile; fileRef = 02E0DD68275CD69F009156D0 /* BMEULJIRO.otf */; };
 		2647D3BBA940D398F54F1C96 /* Pods_iOS_Lab001.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C13EB1947804D1D2A4634D56 /* Pods_iOS_Lab001.framework */; };
 /* End PBXBuildFile section */
 
@@ -29,6 +32,9 @@
 		02B7D750271595A3003E4FCB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		02B7D752271595A3003E4FCB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		02D1A4F0271C18550072C056 /* RefreshControlViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshControlViewController.swift; sourceTree = "<group>"; };
+		02E09878275CFA2C00C5C8E1 /* BMJUA_otf.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = BMJUA_otf.otf; sourceTree = "<group>"; };
+		02E09879275CFA2C00C5C8E1 /* BMHANNA_11yrs_otf.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = BMHANNA_11yrs_otf.otf; sourceTree = "<group>"; };
+		02E0DD68275CD69F009156D0 /* BMEULJIRO.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = BMEULJIRO.otf; sourceTree = "<group>"; };
 		0EB04F66BB080975C2AF98F0 /* Pods-iOS_Lab001.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOS_Lab001.debug.xcconfig"; path = "Target Support Files/Pods-iOS_Lab001/Pods-iOS_Lab001.debug.xcconfig"; sourceTree = "<group>"; };
 		36CAFE882947049F2ABE4C15 /* Pods-iOS_Lab001.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOS_Lab001.release.xcconfig"; path = "Target Support Files/Pods-iOS_Lab001/Pods-iOS_Lab001.release.xcconfig"; sourceTree = "<group>"; };
 		C13EB1947804D1D2A4634D56 /* Pods_iOS_Lab001.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iOS_Lab001.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -67,6 +73,9 @@
 		02B7D743271595A1003E4FCB /* iOS_Lab001 */ = {
 			isa = PBXGroup;
 			children = (
+				02E0DD68275CD69F009156D0 /* BMEULJIRO.otf */,
+				02E09879275CFA2C00C5C8E1 /* BMHANNA_11yrs_otf.otf */,
+				02E09878275CFA2C00C5C8E1 /* BMJUA_otf.otf */,
 				02B7D744271595A1003E4FCB /* AppDelegate.swift */,
 				02B7D746271595A1003E4FCB /* SceneDelegate.swift */,
 				023EDCC7271BFCFA005F7C8C /* CMViewController.swift */,
@@ -157,8 +166,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				02E0987B275CFA2C00C5C8E1 /* BMHANNA_11yrs_otf.otf in Resources */,
 				02B7D751271595A3003E4FCB /* LaunchScreen.storyboard in Resources */,
 				02B7D74E271595A3003E4FCB /* Assets.xcassets in Resources */,
+				02E0DD69275CD69F009156D0 /* BMEULJIRO.otf in Resources */,
+				02E0987A275CFA2C00C5C8E1 /* BMJUA_otf.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

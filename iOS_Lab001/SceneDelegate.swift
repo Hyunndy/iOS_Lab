@@ -26,6 +26,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let vc = UINavigationController(rootViewController: RootViewController())
         window?.rootViewController = vc
+   
+        /* 폰트 확인용
+        for fontFamily in UIFont.familyNames {
+            for fontName in UIFont.fontNames(forFamilyName: fontFamily) {
+                print(fontName)
+            }
+        }
+         */
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
