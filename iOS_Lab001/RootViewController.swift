@@ -13,7 +13,7 @@ import RxCocoa
 
 class RootViewController: CMViewController {
     
-    let studyData: [String] = ["1: RxDataSource", "2: RefreshControl"]
+    let studyData: [String] = ["1: RxDataSource", "2: RefreshControl", "3:Swift Upgrade"]
     
     let tbvContent = UITableView()
     
@@ -54,6 +54,8 @@ class RootViewController: CMViewController {
                 s.navigationController?.pushViewController(RxDataSourceViewController(), animated: true)
             case 1:
                 s.navigationController?.pushViewController(RefreshControlViewController(), animated: true)
+            case 2:
+                s.navigationController?.pushViewController(TestViewController(), animated: true)
             default:
                 break
             }
